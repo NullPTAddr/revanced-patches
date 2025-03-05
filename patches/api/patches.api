@@ -144,6 +144,70 @@ public final class app/revanced/patches/cieid/restrictions/root/BypassRootChecks
 	public static final fun getBypassRootChecksPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
 
+public final class app/revanced/patches/dudulauncher/Constans {
+	public static final field INSTANCE Lapp/revanced/patches/dudulauncher/Constans;
+	public final fun getPACKAGE_NAME ()Ljava/lang/String;
+}
+
+public final class app/revanced/patches/dudulauncher/appmenu/AppListSortPatchKt {
+	public static final fun getSortingAppMenuPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class app/revanced/patches/dudulauncher/appmenu/FingerPrintsKt {
+	public static final fun getAppListSortingFingerprint ()Lapp/revanced/patcher/Fingerprint;
+	public static final fun getAppListSortingFingerprint2 ()Lapp/revanced/patcher/Fingerprint;
+}
+
+public final class app/revanced/patches/dudulauncher/extension/SharedExtensionPatchKt {
+	public static final fun getSharedExtensionPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class app/revanced/patches/dudulauncher/mapsdrivingmode/FingerPrintsKt {
+	public static final fun getMapsDrivingModeFingerprint ()Lapp/revanced/patcher/Fingerprint;
+}
+
+public final class app/revanced/patches/dudulauncher/mapsdrivingmode/MapsDrivingModePatchKt {
+	public static final fun getMapsDrivingModePatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class app/revanced/patches/dudulauncher/pip/FingerPrintsKt {
+	public static final fun getPipDipLevelFingerprint ()Lapp/revanced/patcher/Fingerprint;
+}
+
+public final class app/revanced/patches/dudulauncher/pip/SetLowestPipAsHighestPatchKt {
+	public static final fun getSetLowestPipAsHighestPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class app/revanced/patches/dudulauncher/shell/ShellCommandReceiverPatchKt {
+	public static final fun getShellCommandReceiverPatch ()Lapp/revanced/patcher/patch/ResourcePatch;
+}
+
+public final class app/revanced/patches/dudulauncher/signature/FingerprintsKt {
+	public static final fun getApplicationFingerprint ()Lapp/revanced/patcher/Fingerprint;
+}
+
+public final class app/revanced/patches/dudulauncher/signature/SpoofSignaturePatchKt {
+	public static final fun getSpoofSignaturePatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class app/revanced/patches/dudulauncher/statebar/FingerPrintsKt {
+	public static final fun getStateBarStillShowOnKeybaordFingerprint ()Lapp/revanced/patcher/Fingerprint;
+	public static final fun getStatusBarStillShowOnKeybaordFingerprint ()Lapp/revanced/patcher/Fingerprint;
+}
+
+public final class app/revanced/patches/dudulauncher/statebar/StateBarStillShowOnKeybaordPatchKt {
+	public static final fun getStateBarStillShowOnKeybaordPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class app/revanced/patches/dudulauncher/vip/FingerPrintsKt {
+	public static final fun getSetVipExpireTimeFingerprint ()Lapp/revanced/patcher/Fingerprint;
+	public static final fun getSetVipTypeFingerprint ()Lapp/revanced/patcher/Fingerprint;
+}
+
+public final class app/revanced/patches/dudulauncher/vip/VipPatchKt {
+	public static final fun getVipPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
 public final class app/revanced/patches/duolingo/ad/DisableAdsPatchKt {
 	public static final fun getDisableAdsPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
