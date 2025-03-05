@@ -1434,7 +1434,7 @@ AVC ima maksimalnu rezoluciju od 1080p, audio kodek Opus nije dostupan, a reprod
   <string name="revanced_spoof_video_streams_about_android_title">Neželjeni efekti lažiranja na Android</string>
   <string name="revanced_spoof_video_streams_about_android_summary">"• Meni „Audio snimak” nedostaje
 • Ujednačena jačina zvuka nije dostupna
-• Opcija „Prisili originalan zvuk” nije dostupna"</string>
+• Opcija „Prisili originalni zvuk” nije dostupna"</string>
   <string name="revanced_spoof_video_streams_about_no_av1">• Nema video kodeka AV1</string>
   <string name="revanced_spoof_video_streams_about_kids_videos">• Videi za decu se možda neće puštati kada ste odjavljeni ili u režimu bez arhiviranja</string>
   <string name="revanced_spoof_streaming_data_stats_for_nerds_title">Prikaži u „Statistici za znalce”</string>
