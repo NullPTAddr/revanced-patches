@@ -235,7 +235,7 @@ fun gmsCoreSupportPatch(
  * A collection of permissions, intents and content provider authorities
  * that are present in GmsCore which need to be transformed.
  */
-private object Constants {
+object Constants {
     /**
      * All permissions.
      */
@@ -484,6 +484,7 @@ private object Constants {
         "com.google.firebase.dynamiclinks.service.START",
         "com.google.iid.TOKEN_REQUEST",
         "com.google.android.gms.location.places.ui.PICK_PLACE",
+        "com.google.android.location.internal.GoogleLocationManagerService.START",
     )
 
     /**

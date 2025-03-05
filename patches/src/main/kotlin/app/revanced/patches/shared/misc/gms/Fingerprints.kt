@@ -22,6 +22,13 @@ internal val googlePlayUtilityFingerprint = fingerprint {
     )
 }
 
+internal val googlePlayUtilityFingerprint2 = fingerprint {
+    accessFlags(AccessFlags.PUBLIC, AccessFlags.STATIC)
+    returns("I")
+    parameters("Landroid/content/Context;", "I")
+    strings("com.google.android.gms", "com.android.vending")
+}
+
 internal val serviceCheckFingerprint = fingerprint {
     accessFlags(AccessFlags.PUBLIC, AccessFlags.STATIC)
     returns("V")

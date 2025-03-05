@@ -17,6 +17,7 @@ dependencies {
     implementation(libs.guava)
     // Android API stubs defined here.
     compileOnly(project(":patches:stub"))
+    compileOnly(files(System.getenv("ANDROID_HOME") + "/platforms/android-34/android.jar"))
 }
 
 tasks {

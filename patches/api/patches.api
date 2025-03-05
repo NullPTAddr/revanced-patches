@@ -64,6 +64,10 @@ public final class app/revanced/patches/all/misc/directory/documentsprovider/Exp
 	public static final fun getExportInternalDataDocumentsProviderPatch ()Lapp/revanced/patcher/patch/ResourcePatch;
 }
 
+public final class app/revanced/patches/all/misc/gmscore/GmsCoreUniversalPatchKt {
+	public static final fun getGmsCoreSupportPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
 public final class app/revanced/patches/all/misc/hex/HexPatchKt {
 	public static final fun getHexPatch ()Lapp/revanced/patcher/patch/RawResourcePatch;
 }
@@ -630,6 +634,13 @@ public final class app/revanced/patches/shared/misc/fix/verticalscroll/VerticalS
 	public static final fun getVerticalScrollPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
 
+public final class app/revanced/patches/shared/misc/gms/Constants {
+	public static final field INSTANCE Lapp/revanced/patches/shared/misc/gms/Constants;
+	public final fun getACTIONS ()Ljava/util/Set;
+	public final fun getAUTHORITIES ()Ljava/util/Set;
+	public final fun getPERMISSIONS ()Ljava/util/Set;
+}
+
 public final class app/revanced/patches/shared/misc/gms/FingerprintsKt {
 	public static final field GET_GMS_CORE_VENDOR_GROUP_ID_METHOD_NAME Ljava/lang/String;
 }
@@ -639,6 +650,17 @@ public final class app/revanced/patches/shared/misc/gms/GmsCoreSupportPatchKt {
 	public static synthetic fun gmsCoreSupportPatch$default (Ljava/lang/String;Ljava/lang/String;Lapp/revanced/patcher/Fingerprint;Ljava/util/Set;Lapp/revanced/patcher/Fingerprint;Lapp/revanced/patcher/patch/Patch;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lapp/revanced/patcher/patch/BytecodePatch;
 	public static final fun gmsCoreSupportResourcePatch (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revanced/patcher/patch/Option;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lapp/revanced/patcher/patch/ResourcePatch;
 	public static synthetic fun gmsCoreSupportResourcePatch$default (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revanced/patcher/patch/Option;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lapp/revanced/patcher/patch/ResourcePatch;
+}
+
+public final class app/revanced/patches/shared/misc/gms/GmsCoreSupportUniversalPatchKt {
+	public static final fun getFromPackageName ()Ljava/lang/String;
+	public static final fun getToPackageName ()Ljava/lang/String;
+	public static final fun gmsCoreSupportResourceUniversalPatch (Lapp/revanced/patcher/patch/Option;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lapp/revanced/patcher/patch/ResourcePatch;
+	public static synthetic fun gmsCoreSupportResourceUniversalPatch$default (Lapp/revanced/patcher/patch/Option;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lapp/revanced/patcher/patch/ResourcePatch;
+	public static final fun gmsCoreSupportUniversalPatch (Lapp/revanced/patcher/Fingerprint;Ljava/util/Set;Lapp/revanced/patcher/patch/Patch;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lapp/revanced/patcher/patch/BytecodePatch;
+	public static synthetic fun gmsCoreSupportUniversalPatch$default (Lapp/revanced/patcher/Fingerprint;Ljava/util/Set;Lapp/revanced/patcher/patch/Patch;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lapp/revanced/patcher/patch/BytecodePatch;
+	public static final fun setFromPackageName (Ljava/lang/String;)V
+	public static final fun setToPackageName (Ljava/lang/String;)V
 }
 
 public final class app/revanced/patches/shared/misc/hex/HexPatchKt {
