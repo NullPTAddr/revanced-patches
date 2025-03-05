@@ -94,6 +94,17 @@ val changePackageNamePatch = resourcePatch(
 
             manifest.setAttribute("package", newPackageName)
 
+            if (manifest.hasAttribute("android:sharedUserId")) {
+                manifest.setAttribute(
+                    "android:sharedUserId",
+                    if (replacementPackageName != packageNameOption.default) {
+                        replacementPackageName
+                    } else {
+                        "${packageName}.revanced"
+                    },
+                )
+            }
+
             if (updatePermissions == true) {
                 val permissions = manifest.getElementsByTagName("permission").asSequence()
                 val usesPermissions = manifest.getElementsByTagName("uses-permission").asSequence()
