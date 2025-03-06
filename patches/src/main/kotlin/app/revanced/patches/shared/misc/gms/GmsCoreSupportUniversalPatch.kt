@@ -14,6 +14,10 @@ import app.revanced.patches.shared.misc.gms.Constants.ACTIONS
 import app.revanced.patches.shared.misc.gms.Constants.AUTHORITIES
 import app.revanced.patches.shared.misc.gms.Constants.PERMISSIONS
 import app.revanced.util.*
+import com.android.apksig.apk.ApkUtils
+import com.android.apksig.internal.apk.v2.V2SchemeVerifier
+import com.android.apksig.util.DataSources
+import com.android.apksig.util.RunnablesExecutor
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction21c
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
@@ -23,9 +27,10 @@ import com.android.tools.smali.dexlib2.immutable.reference.ImmutableStringRefere
 import com.android.tools.smali.dexlib2.util.MethodUtil
 import org.w3c.dom.Element
 import org.w3c.dom.Node
+import java.io.RandomAccessFile
 import java.security.MessageDigest
 
-private const val PACKAGE_NAME_REGEX_PATTERN = "^[a-z]\\w*(\\.[a-z]\\w*)+\$"
+private const val PACKAGE_NAME_REGEX_PATTERN = "^[a-zA-Z]\\w*(\\.[a-zA-Z]\\w*)+\$"
 
 var fromPackageName: String = ""
 var toPackageName: String = ""
@@ -258,6 +263,7 @@ fun gmsCoreSupportResourceUniversalPatch(
             }
 
             document("AndroidManifest.xml").use { document ->
+                val sha1Signature = getPackageSignature(get("../../in.apk").path)
                 fromPackageName = document.documentElement.getAttribute("package")
                 toPackageName = "$fromPackageName.revanced"
                 val applicationNode =
@@ -273,7 +279,7 @@ fun gmsCoreSupportResourceUniversalPatch(
 
                 applicationNode.adoptChild("meta-data") {
                     setAttribute("android:name", "$gmsCoreVendorGroupId.android.gms.SPOOFED_PACKAGE_SIGNATURE")
-                    setAttribute("android:value", getPackageSignature(get("../../in.apk").absolutePath))
+                    setAttribute("android:value", sha1Signature)
                 }
 
                 // GmsCore presence detection in extension.
@@ -321,22 +327,13 @@ fun gmsCoreSupportResourceUniversalPatch(
     block()
 }
 
-@Suppress("PrivateApi")
 internal fun getPackageSignature(apkPath: String): String {
-    val revancedManagerContext: Context? = try {
-        Class.forName("android.app.ActivityThread").getDeclaredMethod("currentApplication", *arrayOfNulls(0))
-            .invoke(null, *arrayOfNulls(0)) as Context
-    } catch (e: Throwable) {
-        null
-    }
-
-    if (revancedManagerContext == null) throw RuntimeException("Need to run on android device!!!")
-    val signature = revancedManagerContext.packageManager?.getPackageArchiveInfo(
-        apkPath,
-        PackageManager.GET_SIGNATURES
-    )?.signatures?.get(0)?.toByteArray()
+    val dataSource = DataSources.asDataSource(RandomAccessFile(apkPath, "r"))
+    val zipSections = ApkUtils.findZipSections(dataSource)
+    val v2 = V2SchemeVerifier.verify(RunnablesExecutor.SINGLE_THREADED, dataSource, zipSections, mapOf(2 to "APK Signature Scheme v2"), hashSetOf(2), 24, Int.MAX_VALUE)
+    val signatureByte = v2.signers[0].certs[0].encoded
     val md = MessageDigest.getInstance("SHA-1")
-    md.update(signature)
+    md.update(signatureByte)
     val digest = md.digest()
 
     val sha1 = digest.joinToString("") { String.format("%02X", it) }.lowercase()
