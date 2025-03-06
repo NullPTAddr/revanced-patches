@@ -18,6 +18,8 @@ dependencies {
     // Android API stubs defined here.
     compileOnly(project(":patches:stub"))
     compileOnly(files(System.getenv("ANDROID_HOME") + "/platforms/android-34/android.jar"))
+    // Used for get Package Signature
+    compileOnly("com.android.tools.build:apksig:8.5.2")
 }
 
 tasks {
