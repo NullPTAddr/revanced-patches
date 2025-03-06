@@ -25,7 +25,7 @@ class SignaturePatch {
             val creator = object : Parcelable.Creator<PackageInfo> {
                 override fun createFromParcel(source: Parcel?): PackageInfo {
                     var packageInfo = originalCreator.createFromParcel(source)
-                    if (packageInfo.packageName != null && packageInfo.signatures != null && packageInfo.signatures.size > 0) {
+                    if (packageInfo.packageName != null) {
                         if (packageInfo.packageName.equals(packageName, true)) {
                             packageInfo = spoofSignature(packageInfo, originalSignature)
                         }
