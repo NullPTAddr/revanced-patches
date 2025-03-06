@@ -24,7 +24,7 @@ import com.android.tools.smali.dexlib2.util.MethodUtil
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 
-private const val PACKAGE_NAME_REGEX_PATTERN = "^[a-z]\\w*(\\.[a-z]\\w*)+\$"
+private const val PACKAGE_NAME_REGEX_PATTERN = "^[a-zA-Z]\\w*(\\.[a-zA-Z]\\w*)+\$"
 
 /**
  * A patch that allows patched Google apps to run without root and under a different package name
