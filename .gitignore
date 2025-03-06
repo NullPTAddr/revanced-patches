@@ -114,6 +114,7 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 # Potentially copyrighted test APK
+apks/
 *.apk
 
 # Ignore vscode config
