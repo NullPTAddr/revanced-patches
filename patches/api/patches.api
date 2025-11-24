@@ -1,4 +1,5 @@
 public final class FingerprintsKt {
+	public static final fun getMusicLyricLoadingFingerprint ()Lapp/revanced/patcher/Fingerprint;
 	public static final fun getMusicTitleFingerprint ()Lapp/revanced/patcher/Fingerprint;
 }
 
