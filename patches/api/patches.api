@@ -1,3 +1,11 @@
+public final class FingerprintsKt {
+	public static final fun getMusicTitleFingerprint ()Lapp/revanced/patcher/Fingerprint;
+}
+
+public final class MusicInfoPatchKt {
+	public static final fun getMusicInfoPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
 public final class app/revanced/patches/all/misc/activity/exportall/ExportAllActivitiesPatchKt {
 	public static final fun getExportAllActivitiesPatch ()Lapp/revanced/patcher/patch/ResourcePatch;
 }
