@@ -14,7 +14,7 @@ import org.w3c.dom.Element
 
 @Suppress("unused")
 val spoofSignaturePatch = bytecodePatch(
-    "Spoof Signature",
+    "Spoof Signature Universal",
     use = false
 ) {
     dependsOn(
