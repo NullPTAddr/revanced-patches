@@ -1,4 +1,4 @@
-package app.revanced.patches.shared.misc.spoof
+package app.revanced.patches.all.misc.signature
 
 import android.annotation.SuppressLint
 import android.app.Application
