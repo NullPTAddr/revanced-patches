@@ -30,31 +30,36 @@ class LyricFinder {
                 hasLyric = true
                 return
             }
-            val route = Route(Route.Method.GET, "/search" + "?q=${query}").compile()
-            val connection = Requester.getConnectionFromCompiledRoute(BASE_URL, route)
-            connection.connectTimeout = 10_000
-            connection.readTimeout = 10_000
-            Utils.showToastShort("Searching: $query")
-            if (connection.responseCode == 200) {
-                val jsonObject = Requester.parseJSONArrayAndDisconnect(connection)
-                if (jsonObject.length() == 0) {
-                    Utils.showToastShort("Not Found: $query")
-                    return
-                }
 
-
-                for (index in 0 until jsonObject.length()) {
-                    val syncedLyrics = try {
-                        jsonObject.getJSONObject(index).getString("syncedLyrics")
-                    } catch (e: Exception) {
-                        null
-                    }
-                    if (syncedLyrics != null && !syncedLyrics.equals("null", true)) {
-                        saveLyricFile(filePath, syncedLyrics)
-                        hasLyric = true
+            try {
+                val route = Route(Route.Method.GET, "/search" + "?q=${query}").compile()
+                val connection = Requester.getConnectionFromCompiledRoute(BASE_URL, route)
+                connection.connectTimeout = 10_000
+                connection.readTimeout = 10_000
+                Utils.showToastShort("Searching: $query")
+                if (connection.responseCode == 200) {
+                    val jsonObject = Requester.parseJSONArrayAndDisconnect(connection)
+                    if (jsonObject.length() == 0) {
+                        Utils.showToastShort("Not Found: $query")
                         return
                     }
+
+
+                    for (index in 0 until jsonObject.length()) {
+                        val syncedLyrics = try {
+                            jsonObject.getJSONObject(index).getString("syncedLyrics")
+                        } catch (e: Exception) {
+                            null
+                        }
+                        if (syncedLyrics != null && !syncedLyrics.equals("null", true)) {
+                            saveLyricFile(filePath, syncedLyrics)
+                            hasLyric = true
+                            return
+                        }
+                    }
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
             Utils.showToastShort("Not Found: $query")
         }
