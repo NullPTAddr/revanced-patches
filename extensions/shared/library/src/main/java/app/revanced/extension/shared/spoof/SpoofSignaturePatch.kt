@@ -1,4 +1,4 @@
-package app.revanced.extension.dudulauncher.signature
+package app.revanced.extension.shared.spoof
 
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -13,13 +13,9 @@ import java.lang.reflect.Method
 @Suppress("unused")
 class SignaturePatch {
     companion object {
-        val packageName = "com.dudu.autoui"
-        val signatureData =
-            "MIIDUzCCAjugAwIBAgIELrQHXTANBgkqhkiG9w0BAQsFADBaMQ0wCwYDVQQGEwRkdWR1MQ0wCwYD\nVQQIEwRkdWR1MQ0wCwYDVQQHEwRkdWR1MQ0wCwYDVQQKEwRkdWR1MQ0wCwYDVQQLEwRkdWR1MQ0w\nCwYDVQQDEwRkdWR1MB4XDTIyMDExNzEzMDExOFoXDTQ3MDExMTEzMDExOFowWjENMAsGA1UEBhME\nZHVkdTENMAsGA1UECBMEZHVkdTENMAsGA1UEBxMEZHVkdTENMAsGA1UEChMEZHVkdTENMAsGA1UE\nCxMEZHVkdTENMAsGA1UEAxMEZHVkdTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAM95\nxAJhAAd/1qg/Alet0mFPiLtM9+BtE+q7Vjpy6fjh0zAYXkPWurJUy4kQRL8lo/pql/hE2cji6o7s\n1Z57HPT25z+bXEeom77v+I6+lJ3r0gNm41gI1zF1g4ijmv2zPcuSSsH3sBus20QvXK5f+jQFJvTI\nxnoGPnq8TgPYKrxdm4tdWaViy2X5i0V/d9ee0arCIz5KRVlJ3E1FCWs4aWjp0b+ciCvntpRhVQfd\n5ArnkiUtsHnVPV/1833TLhPYreMB5n8uDUhuRH2QJcW+PTrShU62fMjGfb/uxc7zMgQsRM22qY0r\nJBZCISxg0B+4TYiR+WIeD1qK+vZD+8tgqf8CAwEAAaMhMB8wHQYDVR0OBBYEFBsHcUm73QnsS91w\nPbxLWQn3Rws9MA0GCSqGSIb3DQEBCwUAA4IBAQBdyCSjPPEPFVcxy+gsY0kvIX95LyNStIvGs4J8\n+6DiQbj+46qdRW4spxrrT0iwDzGcKrKCq4UFU/tUa0v5TOgPgQqAUYjTZ09yc4QX0vzwMQDZoQG3\nDwyMrOucNzyGMOdiL9814oMEBq+82kiFuEWc1ZoivuxF9yluGQVUXUzr1ej4S9RGwMGT+q2aPDrl\nWsYVeaGNvRWiYPjAnwr+ahqLKdV0YOPax5WRN+uQ9e2cuhaEbC17a6cDNGlYhU1gccKYx2Z6dRlJ\ngGTHOB+BS/Xmwg8dsl0RVSxPmhmHJLM6FdDVmuTy8DxpMaZx5oTwGLQHc4WF1UhXzc6pEt0tBi+L"
-
         @JvmStatic
-        fun killPM() {
-            val originalSignature = Signature(Base64.decode(signatureData, Base64.DEFAULT))
+        fun killPM(packageName: String, rawSignatureBase64: String) {
+            val originalSignature = Signature(Base64.decode(rawSignatureBase64, Base64.DEFAULT))
             val originalCreator = PackageInfo.CREATOR
 
             val creator = object : Parcelable.Creator<PackageInfo> {

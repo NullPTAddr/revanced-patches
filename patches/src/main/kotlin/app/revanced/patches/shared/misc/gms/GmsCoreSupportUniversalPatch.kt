@@ -56,6 +56,7 @@ fun gmsCoreSupportUniversalPatch(
     name = "GmsCore support universal",
     description = "Allows patched Google apps to run without root and under a different package name " +
             "by using GmsCore instead of Google Play Services.",
+    use = false
 ) {
     val gmsCoreVendorGroupIdOption = stringOption(
         key = "gmsCoreVendorGroupId",
@@ -70,7 +71,6 @@ fun gmsCoreSupportUniversalPatch(
     ) { it!!.matches(Regex(PACKAGE_NAME_REGEX_PATTERN)) }
 
     dependsOn(
-        changePackageNamePatch,
         gmsCoreSupportResourcePatchFactory(gmsCoreVendorGroupIdOption),
         extensionPatch,
     )
