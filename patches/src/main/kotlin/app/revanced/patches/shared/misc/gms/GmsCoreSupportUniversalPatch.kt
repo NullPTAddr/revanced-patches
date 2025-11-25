@@ -1,6 +1,7 @@
 package app.revanced.patches.shared.misc.gms
 
-import android.content.Context
+import android.annotation.SuppressLint
+import android.app.Application
 import android.content.pm.PackageManager
 import app.revanced.patcher.Fingerprint
 import app.revanced.patcher.extensions.InstructionExtensions.instructions
@@ -13,11 +14,8 @@ import app.revanced.patches.all.misc.resources.addResourcesPatch
 import app.revanced.patches.shared.misc.gms.Constants.ACTIONS
 import app.revanced.patches.shared.misc.gms.Constants.AUTHORITIES
 import app.revanced.patches.shared.misc.gms.Constants.PERMISSIONS
-import app.revanced.util.*
-import com.android.apksig.apk.ApkUtils
-import com.android.apksig.internal.apk.v2.V2SchemeVerifier
-import com.android.apksig.util.DataSources
-import com.android.apksig.util.RunnablesExecutor
+import app.revanced.util.getReference
+import app.revanced.util.returnEarly
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction21c
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
@@ -27,7 +25,6 @@ import com.android.tools.smali.dexlib2.immutable.reference.ImmutableStringRefere
 import com.android.tools.smali.dexlib2.util.MethodUtil
 import org.w3c.dom.Element
 import org.w3c.dom.Node
-import java.io.RandomAccessFile
 import java.security.MessageDigest
 
 private const val PACKAGE_NAME_REGEX_PATTERN = "^[a-zA-Z]\\w*(\\.[a-zA-Z]\\w*)+\$"
@@ -327,15 +324,40 @@ fun gmsCoreSupportResourceUniversalPatch(
     block()
 }
 
-internal fun getPackageSignature(apkPath: String): String {
-    val dataSource = DataSources.asDataSource(RandomAccessFile(apkPath, "r"))
-    val zipSections = ApkUtils.findZipSections(dataSource)
-    val v2 = V2SchemeVerifier.verify(RunnablesExecutor.SINGLE_THREADED, dataSource, zipSections, mapOf(2 to "APK Signature Scheme v2"), hashSetOf(2), 24, Int.MAX_VALUE)
-    val signatureByte = v2.signers[0].certs[0].encoded
-    val md = MessageDigest.getInstance("SHA-1")
-    md.update(signatureByte)
-    val digest = md.digest()
 
-    val sha1 = digest.joinToString("") { String.format("%02X", it) }.lowercase()
-    return sha1
+@SuppressLint("PrivateApi")
+internal fun getPackageManager(): PackageManager {
+    val activityThreadClass = Class.forName("android.app.ActivityThread")
+    val application = activityThreadClass.getDeclaredMethod("currentApplication").invoke(null) as Application
+    val packageManager = application.packageManager
+    return packageManager
+}
+
+internal fun getPackageSignature(apkPath: String): String? {
+    // For API 33+ use PackageInfoFlags
+    val pm = getPackageManager()
+    val packageInfo = if (android.os.Build.VERSION.SDK_INT >= 33) {
+        pm.getPackageArchiveInfo(
+            apkPath,
+            PackageManager.PackageInfoFlags.of(PackageManager.GET_SIGNING_CERTIFICATES.toLong())
+        )
+    } else {
+        pm.getPackageArchiveInfo(
+            apkPath,
+            PackageManager.GET_SIGNING_CERTIFICATES
+        )
+    } ?: return null
+
+    val signingInfo = packageInfo.signingInfo ?: return null
+    val signatures = signingInfo.apkContentsSigners
+
+    if (signatures.isEmpty()) return null
+    val cert = signatures[0].toByteArray()
+
+    // SHA-1 digest
+    val md = MessageDigest.getInstance("SHA1")
+    val sha1Bytes = md.digest(cert)
+
+    // Convert to hex string
+    return sha1Bytes.joinToString("") { "%02X".format(it) }
 }
