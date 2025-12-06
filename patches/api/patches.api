@@ -121,6 +121,14 @@ public final class app/revanced/patches/all/misc/shortcut/sharetargets/RemoveSha
 	public static final fun getRemoveShareTargetsPatch ()Lapp/revanced/patcher/patch/ResourcePatch;
 }
 
+public final class app/revanced/patches/all/misc/signature/SpoofSignaturePatchKt {
+	public static final fun getOriginalPackageName ()Ljava/lang/String;
+	public static final fun getRawSignatureBase64 ()Ljava/lang/String;
+	public static final fun getSpoofSignaturePatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+	public static final fun setOriginalPackageName (Ljava/lang/String;)V
+	public static final fun setRawSignatureBase64 (Ljava/lang/String;)V
+}
+
 public abstract interface class app/revanced/patches/all/misc/transformation/IMethodCall {
 	public abstract fun getDefinedClassName ()Ljava/lang/String;
 	public abstract fun getMethodName ()Ljava/lang/String;
@@ -171,6 +179,14 @@ public final class app/revanced/patches/dudulauncher/appmenu/FingerPrintsKt {
 	public static final fun getAppListSortingFingerprint2 ()Lapp/revanced/patcher/Fingerprint;
 }
 
+public final class app/revanced/patches/dudulauncher/control/FingerprintsKt {
+	public static final fun getWindowsControlFingerprint ()Lapp/revanced/patcher/Fingerprint;
+}
+
+public final class app/revanced/patches/dudulauncher/control/FixWindowsControlPatchKt {
+	public static final fun getFixWindowsControlPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
 public final class app/revanced/patches/dudulauncher/extension/SharedExtensionPatchKt {
 	public static final fun getSharedExtensionPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
@@ -184,7 +200,12 @@ public final class app/revanced/patches/dudulauncher/mapsdrivingmode/MapsDriving
 }
 
 public final class app/revanced/patches/dudulauncher/pip/FingerPrintsKt {
+	public static final fun getInjectInputEventFingerprint ()Lapp/revanced/patcher/Fingerprint;
 	public static final fun getPipDipLevelFingerprint ()Lapp/revanced/patcher/Fingerprint;
+}
+
+public final class app/revanced/patches/dudulauncher/pip/PipEventInjectionSnoothPatchKt {
+	public static final fun getPipEventInjectionSmoothTouchPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
 
 public final class app/revanced/patches/dudulauncher/pip/SetLowestPipAsHighestPatchKt {
@@ -210,6 +231,10 @@ public final class app/revanced/patches/dudulauncher/statebar/FingerPrintsKt {
 
 public final class app/revanced/patches/dudulauncher/statebar/StateBarStillShowOnKeybaordPatchKt {
 	public static final fun getStateBarStillShowOnKeybaordPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class app/revanced/patches/dudulauncher/strings/StringsPatchKt {
+	public static final fun getStringsPatch ()Lapp/revanced/patcher/patch/ResourcePatch;
 }
 
 public final class app/revanced/patches/dudulauncher/vip/FingerPrintsKt {
@@ -243,6 +268,10 @@ public final class app/revanced/patches/finanzonline/detection/bootloader/Bootlo
 
 public final class app/revanced/patches/finanzonline/detection/root/RootDetectionPatchKt {
 	public static final fun getRootDetectionPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class app/revanced/patches/gmscore/spoof/SpoofSignaturePatchKt {
+	public static final fun getSpoofSignaturePatch ()Lapp/revanced/patcher/patch/ResourcePatch;
 }
 
 public final class app/revanced/patches/googlenews/customtabs/EnableCustomTabsPatchKt {

@@ -16,7 +16,7 @@ var rawSignatureBase64: String? = null
 
 @Suppress("unused")
 val spoofSignaturePatch = bytecodePatch(
-    name = "Spoof Signature",
+    name = "Spoof Signature Universal",
     description = "fix some app getting crash",
     use = false
 ) {
@@ -28,7 +28,11 @@ val spoofSignaturePatch = bytecodePatch(
                 document("AndroidManifest.xml").use { document ->
                     val manifest = document.getNode("manifest") as Element
                     originalPackageName = manifest.getAttribute("package")
-                    rawSignatureBase64 = getPackageSignature(get("../../in.apk").path)
+                    rawSignatureBase64 = try {
+                        getPackageSignature(get("../../in.apk").path)
+                    } catch (e: Exception) {
+                        ""
+                    }
                 }
 
             }
@@ -41,8 +45,8 @@ val spoofSignaturePatch = bytecodePatch(
         }
         applicationFingerprint.method.addInstructions(
             0, """
-                const-string v0, $originalPackageName
-                const-string v1, $rawSignatureBase64
+                const-string v0, "$originalPackageName"
+                const-string v1, "$rawSignatureBase64"
                 invoke-static {v0, v1}, Lapp/revanced/extension/shared/spoof/SpoofSignaturePatch;->killPM(Ljava/lang/String;Ljava/lang/String;)V
             """.trimIndent()
         )

@@ -56,6 +56,7 @@ fun gmsCoreSupportUniversalPatch(
     name = "GmsCore support universal",
     description = "Allows patched Google apps to run without root and under a different package name " +
             "by using GmsCore instead of Google Play Services.",
+    use = false
 ) {
     val gmsCoreVendorGroupIdOption = stringOption(
         key = "gmsCoreVendorGroupId",
@@ -260,7 +261,11 @@ fun gmsCoreSupportResourceUniversalPatch(
             }
 
             document("AndroidManifest.xml").use { document ->
-                val sha1Signature = getPackageSignature(get("../../in.apk").path)
+                val sha1Signature = try {
+                    getPackageSignature(get("../../in.apk").path)
+                } catch (e: Exception) {
+                    ""
+                }
                 fromPackageName = document.documentElement.getAttribute("package")
                 toPackageName = "$fromPackageName.revanced"
                 val applicationNode =
